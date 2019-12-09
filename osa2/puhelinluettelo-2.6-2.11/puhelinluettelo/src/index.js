@@ -1,18 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Numbers from './components/Numbers'
+import axios from 'axios'
+
 
 
 const App = () => {
-    const [persons, setPersons] = useState([
-        { name: 'Arto Hellas', number: "040-1234567" }
-    ])
+    const [persons, setPersons] = useState([])
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
     const [search, setSearch] = useState('')
     const [showAll, setShowAll] = useState(true)
+
+    useEffect(() => {
+      axios
+        .get('http://localhost:3001/persons')
+        .then(response => {
+          setPersons(response.data)
+        })
+
+    }, [])
 
     const handleNameInput = (event) => {
         setNewName(event.target.value)
@@ -48,7 +57,6 @@ const App = () => {
     )
 
 }
-
 
 
 ReactDOM.render(
