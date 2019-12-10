@@ -1,17 +1,40 @@
-import React from 'react'
+import React from "react";
+import personService from "../services/persons";
 
-const Numbers = (props) => {
-    const { persons, search, showAll } = props
+const Numbers = props => {
+  const { persons, search, showAll, setPersons } = props;
 
-    const contactsToShow = showAll
-        ? persons
-        : persons.filter(person => person.name.includes(search))
+  const contactsToShow = showAll
+    ? persons
+    : persons.filter(person => person.name.includes(search));
 
-    return (
-        <>
-            {contactsToShow.map(person => <p key={person.name}>{person.name} {person.number}</p>)}
-        </>
-    )
-}
+  const deletePerson = person => {
+    const id = person.id;
 
-export default Numbers
+    if (window.confirm(`Do you really want to delete ${person.name}?`)) {
+      personService
+        .remove(id)
+        .then(returnedPerson => {
+          setPersons(persons.filter(p => p.id !== id));
+        })
+        .catch(error => {
+          console.log("failed to delete");
+        });
+    }
+  };
+
+  return (
+    <>
+      {contactsToShow.map(person => (
+        <div key={person.name}>
+          <p>
+            {person.name} {person.number}
+          </p>
+          <button onClick={() => deletePerson(person)}>Delete</button>
+        </div>
+      ))}
+    </>
+  );
+};
+
+export default Numbers;

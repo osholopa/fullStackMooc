@@ -52,7 +52,7 @@ const App = () => {
                 setPersons={setPersons}
             />
             <h2>Numbers</h2>
-            <Numbers persons={persons} search={search} showAll={showAll} />
+            <Numbers persons={persons} setPersons={setPersons} search={search} showAll={showAll} />
         </div>
     )
 
