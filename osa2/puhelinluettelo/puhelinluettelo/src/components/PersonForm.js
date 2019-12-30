@@ -10,7 +10,8 @@ const PersonForm = props => {
     setNewNumber,
     setPersons,
     handleNameInput,
-    handleNumberInput
+    handleNumberInput,
+    setMessage
   } = props;
 
   const addName = event => {
@@ -45,9 +46,19 @@ const PersonForm = props => {
             );
             setNewName("");
             setNewNumber("");
+            setMessage(`Updated ${returnedPerson.name}`);
+            setTimeout(() => setMessage([null, false]), 3000);
           })
           .catch(error => {
-            console.log("failed to update");
+            console.log(error);
+            setMessage([
+              `Information of ${person.name} has been removed from the server`,
+              true
+            ]);
+            setNewName("");
+            setNewNumber("");
+            setPersons(persons.filter(p => p.id !== id));
+            setTimeout(() => setMessage([null, false]), 3000);
           });
       }
       return;
@@ -59,6 +70,8 @@ const PersonForm = props => {
         setPersons(persons.concat(returnedPerson));
         setNewName("");
         setNewNumber("");
+        setMessage([`Added ${returnedPerson.name}`, false]);
+        setTimeout(() => setMessage([null, false]), 3000);
       })
       .catch(error => {
         console.log("failed to create");
