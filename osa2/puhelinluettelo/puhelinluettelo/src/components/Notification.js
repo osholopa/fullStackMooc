@@ -3,17 +3,13 @@ import React from 'react'
 const Notification = ({message, setMessage}) => { 
     
     const messageStyle = {
-        color: 'green',
+        color: message[1] ? 'red' : 'green',
         background: 'lightgrey',
         fontSize: 20,
         borderStyle: 'solid',
         borderRadius: 5,
         padding: 10,
         marginBottom: 10
-    }
-
-    if(message[1]) {
-       messageStyle.color = 'red' 
     }
 
     if(message[0] == null) {
@@ -25,7 +21,6 @@ const Notification = ({message, setMessage}) => {
             {message[0]}
         </div>
     )
-    
     
 }
 
