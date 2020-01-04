@@ -15,7 +15,7 @@ const App = () => {
   const [message, setMessage] = useState([null, false])
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/persons").then(response => {
+    axios.get("/api/persons").then(response => {
       setPersons(response.data)
     })
   }, [])
