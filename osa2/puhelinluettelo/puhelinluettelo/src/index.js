@@ -1,42 +1,42 @@
-import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
-import Filter from "./components/Filter";
-import PersonForm from "./components/PersonForm";
-import Numbers from "./components/Numbers";
-import Notification from "./components/Notification";
-import axios from "axios";
+import React, { useState, useEffect } from "react"
+import ReactDOM from "react-dom"
+import Filter from "./components/Filter"
+import PersonForm from "./components/PersonForm"
+import Numbers from "./components/Numbers"
+import Notification from "./components/Notification"
+import axios from "axios"
 
 const App = () => {
-  const [persons, setPersons] = useState([]);
-  const [newName, setNewName] = useState("");
-  const [newNumber, setNewNumber] = useState("");
-  const [search, setSearch] = useState("");
-  const [showAll, setShowAll] = useState(true);
-  const [message, setMessage] = useState([null, false]);
+  const [persons, setPersons] = useState([])
+  const [newName, setNewName] = useState("")
+  const [newNumber, setNewNumber] = useState("")
+  const [search, setSearch] = useState("")
+  const [showAll, setShowAll] = useState(true)
+  const [message, setMessage] = useState([null, false])
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then(response => {
-      setPersons(response.data);
-    });
-  }, []);
+    axios.get("http://localhost:3001/api/persons").then(response => {
+      setPersons(response.data)
+    })
+  }, [])
 
   const handleNameInput = event => {
-    setNewName(event.target.value);
-  };
+    setNewName(event.target.value)
+  }
 
   const handleNumberInput = event => {
-    setNewNumber(event.target.value);
-  };
+    setNewNumber(event.target.value)
+  }
 
   const handleSearchInput = event => {
-    setSearch(event.target.value);
-    event.target.value === "" ? setShowAll(true) : setShowAll(false);
-  };
+    setSearch(event.target.value)
+    event.target.value === "" ? setShowAll(true) : setShowAll(false)
+  }
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={message} setMessage={setMessage}/>
+      <Notification message={message} setMessage={setMessage} />
       <Filter search={search} handleSearchInput={handleSearchInput} />
       <h2>add a new</h2>
       <PersonForm
@@ -59,7 +59,7 @@ const App = () => {
         setMessage={setMessage}
       />
     </div>
-  );
-};
+  )
+}
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"))

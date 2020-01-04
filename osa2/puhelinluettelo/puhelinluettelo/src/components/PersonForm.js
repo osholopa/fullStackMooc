@@ -74,7 +74,7 @@ const PersonForm = props => {
         setTimeout(() => setMessage([null, false]), 3000);
       })
       .catch(error => {
-        console.log("failed to create");
+        console.log("Failed to add contact");
       });
   };
 
