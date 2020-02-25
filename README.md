@@ -1,1 +1,4 @@
-"# fullStackMooc"  git init git add README.md git commit -m "first commit" git remote add origin https://github.com/osholopa/fullStackMooc.git git push -u origin master
+## fullStackMooc
+Parts 0, 1, & 2 can be found here.
+Part 3 is in a [different](https://github.com/osholopa/fullStackMooc-part3) repository.
+
