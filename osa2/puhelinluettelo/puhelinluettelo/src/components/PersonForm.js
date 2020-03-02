@@ -1,5 +1,5 @@
-import React from "react";
-import personService from "../services/persons";
+import React from "react"
+import personService from "../services/persons"
 
 const PersonForm = props => {
   const {
@@ -12,25 +12,25 @@ const PersonForm = props => {
     handleNameInput,
     handleNumberInput,
     setMessage
-  } = props;
+  } = props
 
   const addName = event => {
-    event.preventDefault();
-    let found = false;
+    event.preventDefault()
+    let found = false
     persons.forEach(person => {
       if (newName === person.name) {
-        found = true;
+        found = true
       }
-    });
+    })
 
     let nameObject = {
       name: newName,
       number: newNumber
-    };
+    }
 
     if (found) {
-      const person = persons.find(p => p.name === newName);
-      const id = person.id;
+      const person = persons.find(p => p.name === newName)
+      const id = person.id
       if (
         window.confirm(
           `${newName} is already added to phonebook, replace the old number with a new one?`
@@ -43,40 +43,41 @@ const PersonForm = props => {
               persons.map(person =>
                 person.id !== returnedPerson.id ? person : returnedPerson
               )
-            );
-            setNewName("");
-            setNewNumber("");
-            setMessage(`Updated ${returnedPerson.name}`);
-            setTimeout(() => setMessage([null, false]), 3000);
+            )
+            setNewName("")
+            setNewNumber("")
+            setMessage([`Updated ${returnedPerson.name}`, false])
+            setTimeout(() => setMessage([null, false]), 3000)
           })
           .catch(error => {
-            console.log(error);
+            console.log(error)
             setMessage([
               `Information of ${person.name} has been removed from the server`,
               true
-            ]);
-            setNewName("");
-            setNewNumber("");
-            setPersons(persons.filter(p => p.id !== id));
-            setTimeout(() => setMessage([null, false]), 3000);
-          });
+            ])
+            setNewName("")
+            setNewNumber("")
+            setPersons(persons.filter(p => p.id !== id))
+            setTimeout(() => setMessage([null, false]), 3000)
+          })
       }
-      return;
+      return
     }
 
     personService
       .create(nameObject)
       .then(returnedPerson => {
-        setPersons(persons.concat(returnedPerson));
-        setNewName("");
-        setNewNumber("");
-        setMessage([`Added ${returnedPerson.name}`, false]);
-        setTimeout(() => setMessage([null, false]), 3000);
+        setPersons(persons.concat(returnedPerson))
+        setNewName("")
+        setNewNumber("")
+        setMessage([`Added ${returnedPerson.name}`, false])
+        setTimeout(() => setMessage([null, false]), 3000)
       })
       .catch(error => {
-        console.log("Failed to add contact");
-      });
-  };
+        setMessage([`${error.message}`, true])
+        setTimeout(() => setMessage([null, false]), 3000)
+      })
+  }
 
   return (
     <>
@@ -91,7 +92,7 @@ const PersonForm = props => {
         </div>
       </form>
     </>
-  );
-};
+  )
+}
 
-export default PersonForm;
+export default PersonForm
